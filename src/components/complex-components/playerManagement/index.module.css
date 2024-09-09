@@ -1,0 +1,6 @@
+.addButton {
+  display: flex;
+  justify-content: end;
+  position: relative;
+  right: 500px;
+}
