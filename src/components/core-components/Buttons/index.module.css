@@ -1,0 +1,12 @@
+.primaryButtonField {
+  position: relative;
+  left: 7vw;
+  top: 28vh;
+  width: 200px;
+  height: 50px;
+  border-radius: 1cap;
+  background-color: #fd9f52;
+  color: #ffffff;
+  font-size: large;
+  font-weight: 200px;
+}

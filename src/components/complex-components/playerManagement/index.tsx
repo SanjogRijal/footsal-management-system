@@ -1,5 +1,6 @@
-import { Badge } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import TableComponent from "./table";
+import { Heading, Text } from "@chakra-ui/react";
 
 export default function PlayersManagementComponent() {
   const [data, setData] = useState<{status: string, "err"?: string, data: []}>();
@@ -9,16 +10,22 @@ export default function PlayersManagementComponent() {
   }
   useEffect(() => {
     getData();
+    console.log(data);
   })
   return <div style={{
     display: 'flex',
     justifyContent: 'space-between',
+    flexDirection: 'column'
   }}>
-    {data?.status === '200' ? JSON.stringify(data) : <Badge style={{
-      border: '2px solid red',
-      position: 'relative',
-      top: '40vh',
-    left: '40vw',
-      }}>{data?.err}</Badge>}
+    <div className="topSection">
+<Heading textAlign={'center'} alignSelf={'center'} fontSize={'3xl'}>Player Management System</Heading>
+    
+    </div>
+    
+    {<TableComponent position={'relative'} top='10vh' tableHeaders={['Name', 'PreferredPosition', 'joiningDate']} tableData={[{
+      name: 'Sanjog Rijal',
+      preferredPosition: 'Goalkeeper',
+      joiningDate: new Date()
+    }]}/>}
   </div>
 }

@@ -1,40 +1,49 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // App.js File
 
 import React from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer} from '@chakra-ui/react'
 
-export default function TableComponent() {
-	return (
-			<TableContainer w="55%" mx="auto">
+interface IProps {
+  tableHeaders: string[];
+  tableData: { name: string, preferredPosition: string, joiningDate: Date | string }[];
+  position?: position;
+  top?: string
+}
+
+type position = 'relative' | 'absolute' | 'fixed';
+
+export default function TableComponent({
+  tableHeaders,
+  tableData,
+  position,
+  top
+}: IProps) {
+  return (
+    <TableContainer w='40%' whiteSpace={'balance'} pos={ position as position} top={top} mx="auto" >
 				<Table size='sm'>
 					<Thead>
-						<Tr>
-							<Th>Name</Th>
-							<Th>Gender</Th>
-							<Th isNumeric>Age</Th>
+          <Tr>
+            {
+              tableHeaders?.map((header) => <Th key={header} style={{
+                width: '1px'
+              }} textAlign={'center'} borderWidth={'1px'} whiteSpace='none !important' borderColor={'black'}>{header}</Th>)
+            }
 						</Tr>
 					</Thead>
 					<Tbody>
-						<Tr>
-							<Td>Anom Mokha</Td>
-							<Td>Male</Td>
-							<Td isNumeric>19</Td>
-						</Tr>
-						<Tr>
-							<Td>Priya Sharma</Td>
-							<Td>Female</Td>
-							<Td isNumeric>24</Td>
-						</Tr>
-						<Tr>
-							<Td>Arun Singh</Td>
-							<Td>Male</Td>
-							<Td isNumeric>32</Td>
-						</Tr>
-						<Tr>
-							<Td>Sam Watson</Td>
-							<Td>Male</Td>
-							<Td isNumeric>43</Td>
-						</Tr>
+            {
+              tableData?.map((data) => {
+                return (
+                  <Tr key={data.name} >
+                    <Td borderWidth={'1px'} borderColor={'black'}>{data?.name}</Td>
+                    <Td borderWidth={'1px'} borderColor={'black'}>{data?.preferredPosition}</Td>
+                    <Td borderWidth={'1px'} borderColor={'black'}>{data?.joiningDate.toString()}</Td>
+                  </Tr>
+                )
+              })
+            }
+					
 					</Tbody>
 				</Table>
 			</TableContainer>
