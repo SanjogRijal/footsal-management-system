@@ -8,7 +8,9 @@ interface IProps {
   tableHeaders: string[];
   tableData: { name: string, preferredPosition: string, joiningDate: Date | string }[];
   position?: position;
-  top?: string
+  top?: string;
+  useEdit?: boolean;
+  onOpen?: any
 }
 
 type position = 'relative' | 'absolute' | 'fixed';
@@ -17,7 +19,9 @@ export default function TableComponent({
   tableHeaders,
   tableData,
   position,
-  top
+  top,
+  useEdit,
+  onOpen,
 }: IProps) {
   return (
     <TableContainer w='40%' whiteSpace={'balance'} pos={ position as position} top={top} mx="auto" >
@@ -27,8 +31,9 @@ export default function TableComponent({
             {
               tableHeaders?.map((header) => <Th key={header} style={{
                 width: '1px'
-              }} textAlign={'center'} borderWidth={'1px'} whiteSpace='none !important' borderColor={'black'}>{header}</Th>)
+              }} textAlign={'center'} borderWidth={'1px'} whiteSpace='none !important' borderColor={'black'}>{header}</Th>) 
             }
+             {useEdit && <Th borderWidth={'1px'} borderColor={'black'}>Edit</Th>}
 						</Tr>
 					</Thead>
 					<Tbody>
@@ -39,6 +44,7 @@ export default function TableComponent({
                     <Td borderWidth={'1px'} borderColor={'black'}>{data?.name}</Td>
                     <Td borderWidth={'1px'} borderColor={'black'}>{data?.preferredPosition}</Td>
                     <Td borderWidth={'1px'} borderColor={'black'}>{data?.joiningDate.toString()}</Td>
+                    {useEdit && <Td borderWidth={'1px'} borderColor={'black'}><a onClick={onOpen}>Edit</a></Td>}
                   </Tr>
                 )
               })
