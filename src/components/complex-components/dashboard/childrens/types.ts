@@ -10,11 +10,13 @@ export interface LinkItemProps {
 
 export interface SidebarProps extends BoxProps {
   onClose: () => void
+  setActiveNavItem: (navItem: string) => void
 }
 
 export interface NavItemProps extends FlexProps {
   icon: IconType
   children: ReactText
+  href?: string
 }
 
 export interface MobileProps extends FlexProps {

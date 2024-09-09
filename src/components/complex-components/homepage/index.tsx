@@ -1,3 +1,5 @@
+'use client'
+
 import { Heading } from '@chakra-ui/react';
 import styles from './index.module.css';
 import { useRouter } from 'next/router';
