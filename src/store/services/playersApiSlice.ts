@@ -3,7 +3,7 @@ import { PlayersPayloadType } from "./types";
 
 export const playersApiSlice = createApi({
   reducerPath: 'playersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: process?.env?.NEXT_PUBLIC_BASE_API_URL }),
   tagTypes: ['allPlayers'],
   endpoints: ((builder) => ({
     getAllPlayers: builder.query({
