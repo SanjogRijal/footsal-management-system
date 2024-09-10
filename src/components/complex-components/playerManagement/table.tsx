@@ -3,10 +3,11 @@
 
 import React from 'react';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer} from '@chakra-ui/react'
+import { PlayersPayloadType } from '@/store/services/types';
 
 interface IProps {
   tableHeaders: string[];
-  tableData: { name: string, preferredPosition: string, joiningDate: Date | string }[];
+  tableData: PlayersPayloadType[] | {name: string}[];
   position?: position;
   top?: string;
   useEdit?: boolean;
@@ -39,12 +40,18 @@ export default function TableComponent({
 					</Thead>
 					<Tbody>
             {
-              tableData?.map((data) => {
+            tableData?.map((data) => {
+              console.log(data);
                 return  calledBy === 'players' ? (
                   <Tr key={data.name} >
-                    <Td border={'2px solid #6F7887'}>{data?.name}</Td>
-                    <Td border={'2px solid #6F7887'}>{data?.preferredPosition}</Td>
-                    <Td border={'2px solid #6F7887'}>{data?.joiningDate.toString()}</Td>
+                    <Td border={'2px solid #6F7887'}>{(data as PlayersPayloadType)?.name}</Td>
+                    <Td border={'2px solid #6F7887'}>{(data as PlayersPayloadType)?.preferredPosition}</Td>
+                    <Td border={'2px solid #6F7887'}>{(data as PlayersPayloadType)?.joiningDate.toString()}</Td>
+                    {useEdit && <Td border={'2px solid #6F7887'}><a onClick={onOpen}>Edit</a></Td>}
+                  </Tr>
+                ): calledBy === 'teams' ? (
+                  <Tr key={data.name} >
+                      <Td border={'2px solid #6F7887'}>{(data as { name: string })?.name}</Td>
                     {useEdit && <Td border={'2px solid #6F7887'}><a onClick={onOpen}>Edit</a></Td>}
                   </Tr>
                 ): <></>
