@@ -11,6 +11,7 @@ interface IProps {
   top?: string;
   useEdit?: boolean;
   onOpen?: any
+  calledBy?: 'players' | 'teams'
 }
 
 type position = 'relative' | 'absolute' | 'fixed';
@@ -22,31 +23,31 @@ export default function TableComponent({
   top,
   useEdit,
   onOpen,
+  calledBy
 }: IProps) {
+  console.log(tableData);
   return (
-    <TableContainer w='40%' whiteSpace={'balance'} pos={ position as position} top={top} mx="auto" >
-				<Table size='sm'>
+    <TableContainer alignSelf={'center'} padding={'20px'} border={'1px solid'} borderRadius={'10'} pos={position} top={top}>
+				<Table size={'sm'} marginTop={'10px'} >
 					<Thead>
           <Tr>
             {
-              tableHeaders?.map((header) => <Th key={header} style={{
-                width: '1px'
-              }} textAlign={'center'} borderWidth={'1px'} whiteSpace='none !important' borderColor={'black'}>{header}</Th>) 
+              tableHeaders?.map((header) => <Th key={header} textAlign={'center'} border={'2px solid #6F7887' } >{header}</Th>) 
             }
-             {useEdit && <Th borderWidth={'1px'} borderColor={'black'}>Edit</Th>}
+             {useEdit && <Th  textAlign={'center'} pos={position} border={'2px solid #6F7887' }>Edit</Th>}
 						</Tr>
 					</Thead>
 					<Tbody>
             {
               tableData?.map((data) => {
-                return (
+                return  calledBy === 'players' ? (
                   <Tr key={data.name} >
-                    <Td borderWidth={'1px'} borderColor={'black'}>{data?.name}</Td>
-                    <Td borderWidth={'1px'} borderColor={'black'}>{data?.preferredPosition}</Td>
-                    <Td borderWidth={'1px'} borderColor={'black'}>{data?.joiningDate.toString()}</Td>
-                    {useEdit && <Td borderWidth={'1px'} borderColor={'black'}><a onClick={onOpen}>Edit</a></Td>}
+                    <Td border={'2px solid #6F7887'}>{data?.name}</Td>
+                    <Td border={'2px solid #6F7887'}>{data?.preferredPosition}</Td>
+                    <Td border={'2px solid #6F7887'}>{data?.joiningDate.toString()}</Td>
+                    {useEdit && <Td border={'2px solid #6F7887'}><a onClick={onOpen}>Edit</a></Td>}
                   </Tr>
-                )
+                ): <></>
               })
             }
 					

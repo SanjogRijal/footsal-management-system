@@ -11,23 +11,29 @@ import {
   FormLabel,
   Input,
   Select,
-  useDisclosure,
 } from '@chakra-ui/react';
+import { useAddPlayerMutation } from '@/store/services/playersApiSlice';
+import { PlayersPayloadType } from '@/store/services/types';
+// import { useGetAllPlayersQuery } from '@/services/playersApiSlice';
 
 const AddPlayerModal = ({isOpen, onClose}: {isOpen: boolean, onClose:any}) => {
-  
-  const [playerName, setPlayerName] = useState('');
-  const [joiningDate, setJoiningDate] = useState('');
-  const [preferredPosition, setPreferredPosition] = useState('');
+  // const { data } = useGetAllPlayersQuery();
+  // console.log(data);
+  const [playerData, setPlayerData] = useState<PlayersPayloadType>({
+    name: '',
+    preferredPosition: '',
+    joiningDate: '',
+    rating: 0
+  });
 
-  const handleSubmit = () => {
-    // Handle form submission logic here
-    console.log({
-      playerName,
-      joiningDate,
-      preferredPosition,
+  const [addPlayer] = useAddPlayerMutation();
+  const handleSubmit = async () => {
+    await addPlayer({
+      name: playerData?.name as string,
+      joiningDate: playerData?.joiningDate as string,
+      preferredPosition: playerData?.preferredPosition as string,
     });
-    onClose(); // Close the modal after submission
+    onClose(); 
   };
 
   return (
@@ -41,8 +47,8 @@ const AddPlayerModal = ({isOpen, onClose}: {isOpen: boolean, onClose:any}) => {
               <FormLabel htmlFor="playerName">Player Name</FormLabel>
               <Input
                 id="playerName"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
+                value={playerData?.name}
+                onChange={(e) => setPlayerData((prevValue) => ({...prevValue, name: (e.target.value as string)}))}
               />
             </FormControl>
 
@@ -51,8 +57,20 @@ const AddPlayerModal = ({isOpen, onClose}: {isOpen: boolean, onClose:any}) => {
               <Input
                 id="joiningDate"
                 type="date"
-                value={joiningDate}
-                onChange={(e) => setJoiningDate(e.target.value)}
+                value={playerData?.joiningDate}
+                onChange={(e) => setPlayerData((prevValue) => ({...prevValue, joiningDate: e.target.value}))}
+              />
+            </FormControl>
+
+            <FormControl mb={4}>
+              <FormLabel htmlFor="preferredPosition">Preferred Position</FormLabel>
+             <Input
+                id="rating"
+                type="number"
+                max={10}
+                min={0}
+                value={playerData?.rating}
+                onChange={(e) => setPlayerData((prevValue) => ({...prevValue, rating: +e.target.value}))}
               />
             </FormControl>
 
@@ -60,8 +78,8 @@ const AddPlayerModal = ({isOpen, onClose}: {isOpen: boolean, onClose:any}) => {
               <FormLabel htmlFor="preferredPosition">Preferred Position</FormLabel>
               <Select
                 id="preferredPosition"
-                value={preferredPosition}
-                onChange={(e) => setPreferredPosition(e.target.value)}
+                value={playerData.preferredPosition}
+                onChange={(e) => setPlayerData((prevValue) => ({...prevValue, preferredPosition: (e.target.value as string)}))}
               >
                 <option value="">Select position</option>
                 <option value="Forward">Forward</option>
