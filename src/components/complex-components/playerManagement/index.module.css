@@ -1,6 +1,12 @@
-.addButton {
-  display: flex;
-  justify-content: end;
-  position: relative;
-  margin-right: 500px;
-}
+.playersWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    top: 7rem; 
+  }
+
+  .addButton {
+    margin-top: 3%;
+  }

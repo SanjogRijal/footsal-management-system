@@ -9,5 +9,5 @@ interface IProps {
 }
 
 export default function Button({ type, label, style, onClick }: IProps) {
-  return <button style={style ? style : {}} className={type === 'primary' ? styles.primaryButtonField: ''} onClick = {onClick}><b>{label}</b></button> 
+  return <button style={style ? style : {}} className={`${styles.buttonField} ${type === 'primary' ? styles.primaryButtonField: type === 'secondary' ? styles.secondaryButtonField: ''}`} onClick = {onClick}><b>{label}</b></button> 
 }

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import TableComponent from "./table";
-import { Heading, useDisclosure } from "@chakra-ui/react";
-import Button from "@/components/core-components/Buttons";
+import { Button, Heading, useDisclosure } from "@chakra-ui/react";
 import styles from './index.module.css'
 import AddPlayerModal from "./addPlayerModal";
 export default function PlayersManagementComponent() {
@@ -16,22 +15,12 @@ export default function PlayersManagementComponent() {
     getData();
     console.log(data);
   })
-  return <div style={{
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    position: 'relative',
-    right: '50px'
-  }}>
+  return <div className={ styles.playersWrapper }>
     <div className={styles.topSection}>
       <Heading textAlign={'center'} alignSelf={'center'} fontSize={'3xl'}>Player Management System</Heading>
     </div>
     <div className={styles.addButton}>
-<Button label="Add Player" type="primary" style={{
-        marginTop: '100px',
-        fontSize: '15px',
-        width: '100px',
-      }} onClick={onOpen}/> 
+      <Button left="45%"colorScheme="blue" onClick={onOpen}>Add Player</Button>
       <AddPlayerModal isOpen={isOpen} onClose={onClose} />
     </div>
     
