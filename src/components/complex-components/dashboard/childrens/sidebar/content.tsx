@@ -4,6 +4,7 @@ import { SidebarProps } from "../types"
 import { NavItem } from "./navItem"
 
 export const SidebarContent = ({ onClose, setActiveNavItem, ...rest }: SidebarProps) => {
+
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -20,7 +21,7 @@ export const SidebarContent = ({ onClose, setActiveNavItem, ...rest }: SidebarPr
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} onClick={() => {setActiveNavItem(link.name.replace(/\s/g, ""))}}>
+        <NavItem key={link.name} icon={link.icon} onClick={() => { localStorage.setItem("activeNavItem", link.name.replace(/\s/g, ""));  setActiveNavItem(link.name)}}>
           {link.name}
         </NavItem>
       ))}
